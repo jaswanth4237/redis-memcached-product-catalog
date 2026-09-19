@@ -1,4 +1,4 @@
-const pool = require('../db');
+const db = require('../db');
 const redisManager = require('../cache/redis');
 const memcachedManager = require('../cache/memcached');
 
@@ -9,12 +9,12 @@ class HealthController {
         let memcachedStatus = false;
 
         try {
-            await pool.query('SELECT 1');
+            await db.query('SELECT 1');
             dbStatus = true;
         } catch (e) { }
 
         try {
-            await redisManager.redis.ping();
+            await redisManager.client.ping();
             redisStatus = true;
         } catch (e) { }
 

@@ -1,7 +1,6 @@
 const express = require('express');
 const config = require('./config');
-const pool = require('./db');
-const seedDatabase = require('./seed');
+const { seedProducts } = require('./seed');
 const cacheBackendMiddleware = require('./middlewares/cacheBackend.middleware');
 const rateLimiterMiddleware = require('./middlewares/rateLimiter.middleware');
 const routes = require('./routes');
@@ -21,10 +20,10 @@ app.use('/', routes);
 async function startServer() {
     try {
         console.log('Verifying Database Connection & Seeding...');
-        await seedDatabase();
+        await seedProducts();
 
-        app.listen(config.port, () => {
-            console.log(`Product Catalog API listening on port ${config.port}`);
+        app.listen(config.API_PORT, () => {
+            console.log(`Product Catalog API listening on port ${config.API_PORT}`);
         });
     } catch (err) {
         console.error('Failed to start server:', err);

@@ -165,3 +165,10 @@ bash run_benchmarks.sh
 | Memcached Without Lock | 337 / 1000 | **663 lost** |
 | Memcached With Lock (`add` CAS pattern) | 1000 / 1000 | **0 lost** |
 | Redis Sorted Set (`ZINCRBY`) | 1000 / 1000 | **0 lost** |
+
+## Memory Comparison
+
+| Storage Backend | Reported Used Memory (MB) | Overhead per Key (Bytes) |
+|---|---|---|
+| Redis 7 | 349.38 | 216.55 |
+| Memcached 1.6 | 59.98 | 0 |

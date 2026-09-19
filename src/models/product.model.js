@@ -1,13 +1,13 @@
-const pool = require('../db');
+const db = require('../db');
 
 class ProductModel {
     static async findById(id) {
-        const result = await pool.query('SELECT * FROM products WHERE id = $1', [id]);
+        const result = await db.query('SELECT * FROM products WHERE id = $1', [id]);
         return result.rows[0] || null;
     }
 
     static async update(id, { name, description, price, category, inventory }) {
-        const result = await pool.query(
+        const result = await db.query(
             `UPDATE products 
        SET name = COALESCE($1, name),
            description = COALESCE($2, description),

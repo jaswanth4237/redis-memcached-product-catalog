@@ -13,14 +13,14 @@ async function rateLimiterMiddleware(req, res, next) {
     const windowSec = 60;
 
     try {
-        let current = 0;
+        let result = { allowed: true, current: 0 };
         if (backend === 'memcached') {
-            current = await memcachedManager.checkRateLimit(userId, limit, windowSec);
+            result = await memcachedManager.checkRateLimit(userId, limit, windowSec);
         } else {
-            current = await redisManager.checkRateLimit(userId, limit, windowSec);
+            result = await redisManager.checkRateLimit(userId, limit, windowSec);
         }
 
-        if (current > limit) {
+        if (!result.allowed) {
             return res.status(429).json({
                 error: 'Too Many Requests',
                 message: `Rate limit exceeded. Maximum ${limit} requests allowed per minute.`,
