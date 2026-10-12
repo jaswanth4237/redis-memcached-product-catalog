@@ -1,0 +1,21 @@
+{
+    "output": {
+        "filePath": "repomix-output.xml",
+        "style": "xml",
+        "parsableStyle": true
+    },
+    "include": [
+        "**/*"
+    ],
+    "ignore": {
+        "useGitignore": true,
+        "useDefaultPatterns": false,
+        "customPatterns": [
+            "**/node_modules/**",
+            "**/.git/**",
+            "**/package-lock.json",
+            "results/*.txt",
+            "repomix-output.xml"
+        ]
+    }
+}

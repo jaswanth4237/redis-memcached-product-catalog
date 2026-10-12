@@ -56,7 +56,11 @@ class MemcachedManager {
     // Versioning helper
     async getVersion() {
         const ver = await this.get('product_version');
-        return ver ? parseInt(ver, 10) : 1;
+        if (!ver) {
+            await this.add('product_version', '1', 0);
+            return 1;
+        }
+        return parseInt(ver, 10);
     }
 
     async bumpVersion() {

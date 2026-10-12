@@ -27,6 +27,7 @@ class RedisManager {
         const key = `product:${productId}`;
         await this.client.del(key);
         await this.client.publish('product_invalidation', key);
+        await this.client.publish('product_updates', String(productId));
     }
 
     // Leaderboard (ZSET)
